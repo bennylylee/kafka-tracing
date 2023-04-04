@@ -4,7 +4,7 @@ This repository holds the demo asset in enabling distributed tracing for Statefu
 
 CSID Event Lineage sources - https://github.com/confluentinc/csid-event-lineage[github]
 
-Opentelemetry documentation and sources - https://opentelemetry.io/[main site], https://github.com/open-telemetry[github]
+OpenTelemetry documentation and sources - https://opentelemetry.io/[main site], https://github.com/open-telemetry[github]
 
 
 === Generate OpenTelemetry instrumentation extensions jar 

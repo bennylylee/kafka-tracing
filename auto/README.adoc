@@ -2,7 +2,7 @@
 
 This repository holds the demo asset in enabling distributed tracing for Kafka Client program using standard OpenTelemetry auto instrumentation through java agent.
 
-Opentelemetry documentation and sources - https://opentelemetry.io/[main site], https://github.com/open-telemetry[github]
+OpenTelemetry documentation and sources - https://opentelemetry.io/[main site], https://github.com/open-telemetry[github]
 
 
 

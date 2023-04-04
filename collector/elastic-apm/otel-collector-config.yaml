@@ -15,14 +15,10 @@ processors:
   batch:
 
 exporters:
-  jaeger:
-    endpoint: jaeger-all-in-one:14250
-    tls:
-      insecure: true
   otlp/elastic:
-    endpoint: # Elastic APM URL 
+    endpoint: {{ Elastic APM URL }}
     headers:
-      Authorization: "Bearer ##Secret Token##"
+      Authorization: "Bearer {{ Elastic APM Secret Token }}"
   logging:
     loglevel: debug
 

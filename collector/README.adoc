@@ -1,0 +1,48 @@
+=== Jaeger + OpenTelemetry Collector
+
+To start the services
+----
+cd jaeger
+docker-compose up -d
+----
+
+To shutdown the services
+----
+cd jaeger
+docker-compose down -v
+----
+
+
+=== Elastic APM + OpenTelemetry Collector
+Before you start the services, you need to modify the elastic-apm/otel-collector-config.yaml and provide the Elastic APM URL endpoint and the Elastic APM secret token in the respective fields.
+
+.Where to get the info?
+- Login to Elastic Cloud
+- Navigate to Fleet > Agent policies > Elastic Cloud agent policy 
+
+image::apm01.png[]
+
+- Click on Elastic APM
+
+image::apm02.png[]
+
+- Find Elastic APM URL under General section
+
+image::apm03.png[]
+
+- Find Secret Token under Agent authorization
+
+image::apm04.png[]
+
+
+To start the services
+----
+cd elastic-apm
+docker-compose up -d
+----
+
+To shutdown the services
+----
+cd elastic-apm
+docker-compose down -v
+----
