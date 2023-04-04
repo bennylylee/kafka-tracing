@@ -1,0 +1,6 @@
+=== Introduction
+
+.This repository holds the demo asset in enabling distributed tracing for Kafka Clients and Stateful Kafka Streams program using the following approaches:
+- OpenTelemetry Java Agent (auto instrumentation) for Kafka Client
+- OpenTelemetry SDK auto-configuration (manual instrumentation) for Kafka Client
+- CSID instrumentation extensions (auto instrumentation extensions) for Stateful Kafka Streams

@@ -1,0 +1,100 @@
+=== Introduction
+
+This repository holds the demo asset in enabling distributed tracing for Kafka Client program using standard OpenTelemetry auto instrumentation through java agent.
+
+Opentelemetry documentation and sources - https://opentelemetry.io/[main site], https://github.com/open-telemetry[github]
+
+
+
+=== Before running the demo
+
+Modify energy-generator/src/main/resources/producer.properties according to your Confluent Cloud environment
+
+----
+bootstrap.servers={{ BOOTSTRAP_SERVERS }}
+security.protocol=SASL_SSL
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username='{{ CLUSTER_API_KEY }}' password='{{ CLUSTER_API_SECRET }}';
+sasl.mechanism=PLAIN
+acks=all
+key.serializer=org.apache.kafka.common.serialization.StringSerializer
+value.serializer=org.apache.kafka.common.serialization.IntegerSerializer
+client.id=EnergyGenerator
+topic=energy-topic
+----
+
+
+Modify energy-reader/src/main/resources/consumer.properties according to your Confluent Cloud environment
+
+----
+bootstrap.servers={{ BOOTSTRAP_SERVERS }}
+security.protocol=SASL_SSL
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required username='{{ CLUSTER_API_KEY }}' password='{{ CLUSTER_API_SECRET }}';
+sasl.mechanism=PLAIN
+acks=all
+key.serializer=org.apache.kafka.common.serialization.StringSerializer
+value.serializer=org.apache.kafka.common.serialization.IntegerSerializer
+max.poll.interval.ms=300000
+enable.auto.commit=true
+auto.offset.reset=earliest
+group.id=energy-readers
+client.id=EnergyReader
+topic=energy-topic
+----
+
+Create a Kafka Topic
+----
+confluent kafka topic create energy-topic --partitions 1
+----
+
+
+Start the OpenTelemetry Collector
+
+----
+cd kafka-tracing/collector/jaeger
+docker-compose up -d
+----
+
+
+Browse to http://localhost:16686/[Jaeger UI]
+
+
+Run energy-generator Kafka client program
+----
+cd energy-generator
+mvn clean package
+
+export OTEL_SERVICE_NAME=EnergyGenerator
+export OTEL_TRACES_EXPORTER=otlp
+export OTEL_METRICS_EXPORTER=none
+export OTEL_LOGS_EXPORTER=none
+java -javaagent:/opt/otel/opentelemetry-javaagent.jar \
+-jar ./target/EnergyGenerator-jar-with-dependencies.jar
+----
+
+
+Run energy-reader Kafka client program
+----
+cd energy-reader
+mvn clean package
+
+export OTEL_SERVICE_NAME=EnergyReader
+export OTEL_TRACES_EXPORTER=otlp
+export OTEL_METRICS_EXPORTER=none
+export OTEL_LOGS_EXPORTER=none
+java -javaagent:/opt/otel/opentelemetry-javaagent.jar \
+-jar ./target/EnergyReader-jar-with-dependencies.jar
+----
+
+NOTE: Modify /opt/otel to the path containing the Opentelemetry javaagent and instrumentation extension.
+
+
+=== Sample Telemetry in JaegerUI
+
+*TBA*
+
+
+=== Compatible OpenTelemetry versions
+
+Both development of extension and installation requires compatible version of main OpenTelemetry Java Instrumentation.
+
+Current build is targeting v1.13.0 of OpenTelemetry instrumentation.
