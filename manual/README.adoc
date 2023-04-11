@@ -1,6 +1,67 @@
+== Manual Instrumentation
+
 === Introduction
 
 This repository holds the demo asset in enabling distributed tracing for Kafka Client program using standard OpenTelemetry manual instrumentation through SDK auto-configuration.
+
+You need to include the following Maven dependencies in your Kafka program.
+
+Maven
+
+====
+----
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-bom</artifactId>
+        <version>1.24.0</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>io.opentelemetry</groupId>
+        <artifactId>opentelemetry-bom-alpha</artifactId>
+        <version>1.24.0-alpha</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+  <dependencies>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-exporter-otlp</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.opentelemetry</groupId>
+      <artifactId>opentelemetry-sdk-extension-autoconfigure</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.opentelemetry.instrumentation</groupId>
+      <artifactId>opentelemetry-kafka-clients-2.6</artifactId>
+      <version>1.24.0-alpha</version>
+    </dependency>
+    ...
+  </dependencies>
+----
+====
+
+Gradle
+
+====
+----
+
+dependencies {
+    implementation 'io.opentelemetry:opentelemetry-sdk-extension-autoconfigure:1.24.0'
+    implementation 'io.opentelemetry:opentelemetry-exporter-otlp:1.24.0'
+    implementation 'io.opentelemetry:opentelemetry-kafka-clients-2.6:1.24.0-alpha'
+}
+
+----
+====
+
+
 
 OpenTelemetry documentation and sources - https://opentelemetry.io/[main site], https://github.com/open-telemetry[github]
 

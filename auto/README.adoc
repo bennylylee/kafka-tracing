@@ -1,3 +1,5 @@
+== Auto Instrumentation
+
 === Introduction
 
 This repository holds the demo asset in enabling distributed tracing for Kafka Client program using standard OpenTelemetry auto instrumentation through java agent.

@@ -1,3 +1,5 @@
+== OpenTelemetry Collector
+
 === Jaeger + OpenTelemetry Collector
 
 To start the services
